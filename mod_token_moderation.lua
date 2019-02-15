@@ -36,14 +36,12 @@ module:hook("muc-room-created", function(event)
                         return nil, "modify", "not-acceptable"
                 -- keep other affil stuff working as normal (hopefully, haven't needed to use/test any of it)
                 else
-                        return _set_affiliation(room, actor, jid, affiliation, reason)
-                end
+                        return _set_affiliation(room, actor, jid, affiliation, reason);
+                end;
         end;
 end);
 function setupAffiliation(room, origin, stanza)
-        -- At all points check that we have what we want and run handle_normal_presence either way
         if origin.auth_token then
-                log('info', 'presence detected with token %s', origin.auth_token);
                 -- Extract token body and decode it
                 local dotFirst = origin.auth_token:find("%.");
                 if dotFirst then
@@ -57,8 +55,8 @@ function setupAffiliation(room, origin, stanza)
                                 else
                                         room:set_affiliation("token_plugin", jid_bare(stanza.attr.from), "member");
                                 end;
-						end;
-				end;
+			end;
 		end;
+	end;
 end;
                         
