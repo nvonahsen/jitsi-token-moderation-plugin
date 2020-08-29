@@ -13,12 +13,16 @@ I'm not sure of how well it will work in 1 on 1 chats since I think prosody uses
 This may well break may other features relying on prosody affiliations, such as: banning people, assigning roles within jitsi/prosody, using username/password login, and more. So try it with your setup and check whether it works.
 
 ## Installation
+### Standalone
 - Put the lua file somewhere on your jitsi server`
 - Open `/etc/prosody/conf.d/[YOUR DOMAIN].cfg.lua`
 - at the very top of the file in **plugin_paths** after **"/usr/share/jitsi-meet/prosody-plugins/"** add `, "[DIRECTORY INTO WHICH YOU PUT THE MOD LUA]"`
 - edit the conferance.[YOUR DOMAIN] component to add **token_moderation**
   - Change this line `modules_enabled = { [EXISTING MODULES] }` TO `modules_enabled = { [EXISTING MODULES]; "token_moderation" }`
 - run `prosodyctl restart && /etc/init.d/jicofo restart && /etc/init.d/jitsi-videobridge restart` in bash to restart prosody/jitsi/jicofo
+### Docker (based on the stack from [jitsi-meet](https://github.com/jitsi/docker-jitsi-meet))
+- Set the ENV `XMPP_MUC_MODULES=token_moderation` for prosody at `.env` or `docker-compose.yml`.
+- Add the file `mod_token_moderation.lua` to the image at `/prosody-plugins-custom`. You can use as an example the [Dockerfile](./Dockerfile) or you can mount the file directly into the container.
 
 ## Usage
 Just include a boolean field "moderator" in the body of the jwt you create for jitsi, if its true that user will be mod, if not they wont. It works irrespective of which order people join in. 
@@ -38,6 +42,7 @@ Token body should look something like this:
   moderator: true
 }
 ```
+Important: "moderator" is a boolean type and not a string! Therefore `true` and `false` should not be enclosed by `"` or `'`!
 
 ## License
 MIT License
