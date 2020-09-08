@@ -19,7 +19,9 @@ This may well break may other features relying on prosody affiliations, such as:
 - at the very top of the file in **plugin_paths** after **"/usr/share/jitsi-meet/prosody-plugins/"** add `, "[DIRECTORY INTO WHICH YOU PUT THE MOD LUA]"`
 - edit the conferance.[YOUR DOMAIN] component to add **token_moderation**
   - Change this line `modules_enabled = { [EXISTING MODULES] }` TO `modules_enabled = { [EXISTING MODULES]; "token_moderation" }`
-- run `prosodyctl restart && /etc/init.d/jicofo restart && /etc/init.d/jitsi-videobridge restart` in bash to restart prosody/jitsi/jicofo
+- Depending on your setup, you need to restart the services:
+  - run `sudo systemctl restart prosody && sudo systemctl restart jicofo && sudo systemctl restart jitsi-videobridge2` -- for ubuntu/debian systems that rely on `systemctl`
+  - run `prosodyctl restart && /etc/init.d/jicofo restart && /etc/init.d/jitsi-videobridge restart` in bash to restart prosody/jitsi/jicofo (note: running this on systems that rely on `systemctl` can cause permissions problems)
 ### Docker (based on the stack from [jitsi-meet](https://github.com/jitsi/docker-jitsi-meet))
 - Set the ENV `XMPP_MUC_MODULES=token_moderation` for prosody at `.env` or `docker-compose.yml`.
 - Add the file `mod_token_moderation.lua` to the image at `/prosody-plugins-custom`. You can use as an example the [Dockerfile](./Dockerfile) or you can mount the file directly into the container.
