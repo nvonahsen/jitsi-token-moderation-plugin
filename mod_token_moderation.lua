@@ -35,10 +35,10 @@ module:hook("muc-room-created", function(event)
         room.set_affiliation = function(room, actor, jid, affiliation, reason)
                 -- let this plugin do whatever it wants
                 if actor == "token_plugin" then
-                        return _set_affiliation(room, true, jid, affiliation, reason)
+                        return _set_affiliation(room, true, jid, affiliation, reason);
                 -- noone else can assign owner (in order to block prosody/jisti's built in moderation functionality
                 elseif affiliation == "owner" then
-                        return nil, "modify", "not-acceptable"
+                        return _set_affiliation(room, true, jid, nil, "not-acceptable");
                 -- keep other affil stuff working as normal (hopefully, haven't needed to use/test any of it)
                 else
                         return _set_affiliation(room, actor, jid, affiliation, reason);
