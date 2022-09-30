@@ -46,21 +46,29 @@ plugin_paths = { "/usr/share/jitsi-meet/prosody-plugins/", "/usr/share/jitsi-mee
 Just include a boolean field "moderator" in the body of the jwt you create for jitsi, if its true that user will be mod, if not they wont. It works irrespective of which order people join in. 
 
 Token body should look something like this:
-```javascript
+```json
 {
-  context: {
-    user: {
-      avatar,
-      name,
-      id
-    }
+  "context": {
+    "user": {
+      "avatar": "https:/gravatar.com/avatar/abc123",
+      "name": "John Doe",
+      "email": "jdoe@example.com",
+      "id": "abcd:a1b2c3-d4e5f6-0abc1-23de-abcdef01fedcba"
+    },
+    "group": "a123-123-456-789"
   },
-  sub,
-  room,
-  moderator: true
+  "aud": "*",
+  "iss": "your_app_id",
+  "sub": "meet.example.com",
+  "room": "your_room",
+  "moderator": true,
+  "nbf": 1664475176,
+  "exp": 1695998576
 }
 ```
-Important: "moderator" is a **boolean** type and not a string! Therefore `true` and `false` should not be enclosed by `"` or `'`!
+**More detail:** https://github.com/jitsi/lib-jitsi-meet/blob/master/doc/tokens.md#token-structure
+
+**Important:** "moderator" is a **boolean** type and not a string! Therefore `true` and `false` should not be enclosed by `"` or `'`!
 
 ## License
 MIT License
