@@ -1,4 +1,6 @@
 # jitsi-token-moderation-plugin
+> ⚠️ This repo is no longer maintained, I no longer use Jitsi and don't really have the understanding of it or LUA to efficiently debug/resolve the issues in this repo. It might still work for you, but another user has some jitsi plugins developed/listed in this thread, hopefully these help or at least act as a starting point to find more recent information/solutions https://community.jitsi.org/t/new-prosody-modules-to-control-a-tokenized-room-token-affiliation-and-token-owner-party/79962
+
 Lua plugin for jitsi which determines whether users are moderator or not based on token contents
 
 Note im just sharing this because I needed it for a project and it thought it might help people out there, but im not looking to maintain it or make improvements or anything so I probably wont be help much with any problems you might have. 
